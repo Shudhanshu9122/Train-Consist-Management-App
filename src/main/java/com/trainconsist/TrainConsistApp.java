@@ -3,9 +3,9 @@ package com.trainconsist;
 import java.util.Arrays;
 
 /**
- * UC18: Search Bogie ID using Linear Search
+ * UC19: Find Bogie ID using Binary Search
  * 
- * Goal: Search and identify a specific bogie ID from an unsorted list using Linear Search.
+ * Goal: Find a bogie ID efficiently using binary search on sorted data.
  */
 public class TrainConsistApp {
 
@@ -13,37 +13,48 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
-        System.out.println("  UC18: Linear Search (O(n))");
+        System.out.println("  UC19: Binary Search (O(log n))");
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create an array of bogie IDs
+        // 1. Create and sort bogie IDs (Precondition for Binary Search)
         String[] bogieIds = {"BG-101", "BG-203", "BG-505", "BG-102", "BG-808", "BG-304"};
-        System.out.println("Bogie IDs: " + Arrays.toString(bogieIds));
+        Arrays.sort(bogieIds);
+        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
 
-        // 2. Search key
-        String searchKey = "BG-102";
+        // 2. User provides search key
+        String searchKey = "BG-505";
         System.out.println("\nSearching for: " + searchKey);
 
-        // 3 & 4. Sequence traversal and comparison
-        boolean found = false;
+        // 3 & 4. Initialize low, high, and find mid
+        int low = 0;
+        int high = bogieIds.length - 1;
         int position = -1;
-        for (int i = 0; i < bogieIds.length; i++) {
-            if (bogieIds[i].equals(searchKey)) {
-                found = true;
-                position = i;
-                break; // 5. Stop when match found
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            // 5. Compare key with middle value using compareTo()
+            int comparison = searchKey.compareTo(bogieIds[mid]);
+
+            if (comparison == 0) {
+                position = mid;
+                break; // Found
+            } else if (comparison < 0) {
+                high = mid - 1; // 6. Search range is halved
+            } else {
+                low = mid + 1; // 6. Search range is halved
             }
         }
 
-        // 6. Display result
-        if (found) {
-            System.out.println("\n[FOUND] " + searchKey + " exists at index " + position);
+        // 7. Result is displayed
+        if (position != -1) {
+            System.out.println("\n[FOUND] " + searchKey + " exists at index " + position + " in the sorted array.");
         } else {
             System.out.println("\n[NOT FOUND] " + searchKey + " is not in the list.");
         }
 
-        System.out.println("\nLinear Search visits each element sequentially to find a match.");
+        System.out.println("\nBinary Search uses a Divide-and-Conquer strategy for high efficiency.");
         System.out.println("==============================================");
     }
 }
