@@ -1,12 +1,12 @@
 package com.trainconsist;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * UC5: Preserve Insertion Order of Bogies (LinkedHashSet)
+ * UC6: Map Bogie to Capacity (HashMap)
  * 
- * Goal: Maintain insertion order while enforcing uniqueness.
+ * Goal: Associate each bogie with its seating or load capacity using a key-value mapping structure.
  */
 public class TrainConsistApp {
 
@@ -16,25 +16,23 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a LinkedHashSet for the train formation
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // 1. Create a HashMap to store bogie-capacity mapping
+        Map<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // 2. Attach bogies: Engine, Sleeper, Cargo, Guard
-        System.out.println("Attaching bogies: Engine, Sleeper, Cargo, Guard");
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // 2. Insert capacity values using the put() method
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 56);
+        bogieCapacityMap.put("First Class", 24);
 
-        // 3. Attempt to attach a duplicate bogie intentionally (Sleeper)
-        System.out.println("Attempting to attach duplicate bogie: Sleeper");
-        boolean isAdded = trainFormation.add("Sleeper");
-        System.out.println("Was 'Sleeper' added again? " + isAdded);
+        System.out.println("Bogie Capacities Loaded.");
+        System.out.println("----------------------------------------------");
 
-        // 4. Display the final formation order
-        System.out.println("\nFinal Train Formation (Order Preserved & Unique):");
-        System.out.println(trainFormation);
+        // 3. Iterate over the map using entrySet() and display
+        System.out.println("Displaying Bogie Capabilities:");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie Type: " + entry.getKey() + " | Capacity: " + entry.getValue() + " seats");
+        }
 
-        System.out.println("\nLinkedHashSet allows us to keep the physical order of attachment while ensuring no duplicates.");
+        System.out.println("----------------------------------------------");
     }
 }
