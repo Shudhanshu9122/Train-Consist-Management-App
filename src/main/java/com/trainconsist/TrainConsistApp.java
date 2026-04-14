@@ -1,10 +1,10 @@
 package com.trainconsist;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * UC2: Add Passenger Bogies to Train (ArrayList Operations)
+ * UC3: Track Unique Bogie IDs (Set – HashSet)
  */
 public class TrainConsistApp {
 
@@ -14,26 +14,26 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create an ArrayList for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // 1. Create a HashSet for bogie IDs.
+        Set<String> bogieIds = new HashSet<>();
 
-        // 2. Add bogies: Sleeper, AC Chair, First Class
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // 2. Add duplicate values intentionally
+        System.out.println("Adding Bogie: BG101");
+        bogieIds.add("BG101");
+        
+        System.out.println("Adding Bogie: BG102");
+        bogieIds.add("BG102");
+        
+        System.out.println("Adding Bogie: BG101 (Duplicate)");
+        bogieIds.add("BG101"); // This will be ignored
 
-        // 3. Print the list after insertion
-        System.out.println("List after insertion: " + passengerBogies);
+        System.out.println("Adding Bogie: BG103");
+        bogieIds.add("BG103");
 
-        // 4. Remove one bogie (for example AC Chair)
-        passengerBogies.remove("AC Chair");
-        System.out.println("List after removing 'AC Chair': " + passengerBogies);
-
-        // 5. Use contains() to check if Sleeper exists
-        boolean hasSleeper = passengerBogies.contains("Sleeper");
-        System.out.println("Does the list contain 'Sleeper'? " + hasSleeper);
-
-        // 6. Print final list state
-        System.out.println("Final valid passenger bogies list state: " + passengerBogies);
+        // 3. Print the final set. Observe duplicates removed.
+        System.out.println("\nFinal Unique Bogie IDs in Train Consist:");
+        System.out.println(bogieIds);
+        
+        System.out.println("\nNotice that BG101 appears only once. The size of the set is: " + bogieIds.size());
     }
 }
