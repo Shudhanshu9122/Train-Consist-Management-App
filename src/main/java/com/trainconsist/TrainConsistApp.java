@@ -1,60 +1,60 @@
 package com.trainconsist;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * UC19: Find Bogie ID using Binary Search
+ * UC20: Prevent Search on Empty Train
  * 
- * Goal: Find a bogie ID efficiently using binary search on sorted data.
+ * Goal: Prevent search operations on an empty train by throwing an exception early.
  */
 public class TrainConsistApp {
+
+    /**
+     * Searches for a bogie in the list. Throws IllegalStateException if the list is empty.
+     */
+    public static boolean searchBogie(List<String> bogies, String searchKey) {
+        // 1 & 2. Check whether the bogie collection is empty before searching.
+        if (bogies.isEmpty()) {
+            // 3 & 4. Throw IllegalStateException if no bogies exist with a meaningful message.
+            throw new IllegalStateException("FAIL-FAST: Cannot perform search operation on an empty train consist.");
+        }
+
+        // 5. Proceed with search if not empty.
+        return bogies.contains(searchKey);
+    }
 
     public static void main(String[] args) {
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
-        System.out.println("  UC19: Binary Search (O(log n))");
+        System.out.println("  UC20: Defensive Programming (Empty State)");
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create and sort bogie IDs (Precondition for Binary Search)
-        String[] bogieIds = {"BG-101", "BG-203", "BG-505", "BG-102", "BG-808", "BG-304"};
-        Arrays.sort(bogieIds);
-        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
-
-        // 2. User provides search key
-        String searchKey = "BG-505";
-        System.out.println("\nSearching for: " + searchKey);
-
-        // 3 & 4. Initialize low, high, and find mid
-        int low = 0;
-        int high = bogieIds.length - 1;
-        int position = -1;
-
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            
-            // 5. Compare key with middle value using compareTo()
-            int comparison = searchKey.compareTo(bogieIds[mid]);
-
-            if (comparison == 0) {
-                position = mid;
-                break; // Found
-            } else if (comparison < 0) {
-                high = mid - 1; // 6. Search range is halved
-            } else {
-                low = mid + 1; // 6. Search range is halved
-            }
+        // Testing with an empty train
+        List<String> emptyTrain = new ArrayList<>();
+        System.out.println("Attempting to search on an EMPTY train...");
+        
+        try {
+            searchBogie(emptyTrain, "BG-101");
+        } catch (IllegalStateException e) {
+            System.out.println("[CAUGHT] " + e.getMessage());
         }
 
-        // 7. Result is displayed
-        if (position != -1) {
-            System.out.println("\n[FOUND] " + searchKey + " exists at index " + position + " in the sorted array.");
-        } else {
-            System.out.println("\n[NOT FOUND] " + searchKey + " is not in the list.");
+        System.out.println("\nTesting with a populated train:");
+        List<String> activeTrain = new ArrayList<>();
+        activeTrain.add("BG-101");
+        activeTrain.add("BG-102");
+        
+        try {
+            boolean found = searchBogie(activeTrain, "BG-101");
+            System.out.println("Search Result for 'BG-101': " + (found ? "FOUND" : "NOT FOUND"));
+        } catch (IllegalStateException e) {
+            System.out.println("[ERROR] " + e.getMessage());
         }
 
-        System.out.println("\nBinary Search uses a Divide-and-Conquer strategy for high efficiency.");
+        System.out.println("\nDefensive programming ensures the system state is valid before execution.");
         System.out.println("==============================================");
     }
 }
