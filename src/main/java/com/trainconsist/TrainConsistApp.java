@@ -4,39 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UC1: Initialize Train and Display Consist Summary
- *
- * Key Concepts:
- * - Class: A Java class acts as a container to hold program data and logic.
- * - Main Method: Entry point of the Java application.
- * - Static Keyword: Allows JVM to invoke main() without creating an object.
- * - ArrayList: A resizable list from the Java Collections Framework.
- * - List Interface: Provides abstraction over different List implementations.
- * - Console Output: Using System.out.println() to display messages.
- * - Dynamic Initialization: Creating an empty collection for later population.
+ * UC2: Add Passenger Bogies to Train (ArrayList Operations)
  */
 public class TrainConsistApp {
 
     public static void main(String[] args) {
-
-        // Step 1: Print welcome message
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
         System.out.println();
 
-        // Step 2: Initialize the train consist using an ArrayList
-        // ArrayList is chosen because:
-        // - It provides dynamic resizing (unlike fixed-size arrays)
-        // - It maintains insertion order
-        // - It allows indexed access to elements
-        List<String> consist = new ArrayList<>();
+        // 1. Create an ArrayList for passenger bogies
+        List<String> passengerBogies = new ArrayList<>();
 
-        // Step 3: Display initial bogie count
-        System.out.println("Train Consist Initialized.");
-        System.out.println("Current number of bogies: " + consist.size());
-        System.out.println();
-        System.out.println("The train is ready for bogie attachment.");
-        System.out.println("==============================================");
+        // 2. Add bogies: Sleeper, AC Chair, First Class
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
+
+        // 3. Print the list after insertion
+        System.out.println("List after insertion: " + passengerBogies);
+
+        // 4. Remove one bogie (for example AC Chair)
+        passengerBogies.remove("AC Chair");
+        System.out.println("List after removing 'AC Chair': " + passengerBogies);
+
+        // 5. Use contains() to check if Sleeper exists
+        boolean hasSleeper = passengerBogies.contains("Sleeper");
+        System.out.println("Does the list contain 'Sleeper'? " + hasSleeper);
+
+        // 6. Print final list state
+        System.out.println("Final valid passenger bogies list state: " + passengerBogies);
     }
 }
