@@ -1,9 +1,12 @@
 package com.trainconsist;
 
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * UC4: Maintain Ordered Bogie IDs (LinkedList)
+ * UC5: Preserve Insertion Order of Bogies (LinkedHashSet)
+ * 
+ * Goal: Maintain insertion order while enforcing uniqueness.
  */
 public class TrainConsistApp {
 
@@ -13,29 +16,25 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a LinkedList for the consist
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // 1. Create a LinkedHashSet for the train formation
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
-        
-        System.out.println("Initial Train Consist: " + trainConsist);
+        // 2. Attach bogies: Engine, Sleeper, Cargo, Guard
+        System.out.println("Attaching bogies: Engine, Sleeper, Cargo, Guard");
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        // 3. Insert a Pantry Car at position 2
-        System.out.println("\nInserting Pantry Car at position 2...");
-        trainConsist.add(2, "Pantry Car");
-        System.out.println("Train Consist after insertion: " + trainConsist);
+        // 3. Attempt to attach a duplicate bogie intentionally (Sleeper)
+        System.out.println("Attempting to attach duplicate bogie: Sleeper");
+        boolean isAdded = trainFormation.add("Sleeper");
+        System.out.println("Was 'Sleeper' added again? " + isAdded);
 
-        // 4. Remove the first and last bogie
-        System.out.println("\nRemoving the first & last bogie (Engine & Guard)...");
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
+        // 4. Display the final formation order
+        System.out.println("\nFinal Train Formation (Order Preserved & Unique):");
+        System.out.println(trainFormation);
 
-        // 5. Display the final ordered train consist
-        System.out.println("\nFinal Ordered Train Consist: " + trainConsist);
+        System.out.println("\nLinkedHashSet allows us to keep the physical order of attachment while ensuring no duplicates.");
     }
 }
