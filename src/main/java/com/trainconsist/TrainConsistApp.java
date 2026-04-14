@@ -2,12 +2,13 @@ package com.trainconsist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * UC8: Filter Passenger Bogies Using Streams
+ * UC9: Group Bogies by Type (Collectors.groupingBy)
  * 
- * Goal: Filter passenger bogies using Stream pipelines based on seating capacity.
+ * Goal: Group bogies into categories using Stream collectors.
  */
 public class TrainConsistApp {
 
@@ -17,28 +18,31 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a List<Bogie> to store passenger bogies (Reused from UC7)
+        // 1. Create a list of bogies
         List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("General", 90));
+        bogies.add(new Bogie("AC Chair", 56));
 
-        System.out.println("All Passenger Bogies:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
+        System.out.println("Original List of Bogies:");
+        bogies.forEach(System.out::println);
+
+        System.out.println("\nGrouping bogies by type...");
+
+        // 2 & 3 & 4. Convert list to stream and apply groupingBy
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
+
+        // 5. Display the grouped bogie structure
+        System.out.println("\nGrouped Bogies Structure:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("Type: " + entry.getKey());
+            for (Bogie b : entry.getValue()) {
+                System.out.println("  -> " + b);
+            }
         }
-
-        System.out.println("\nFiltering bogies with capacity > 60 using Stream API...");
-
-        // 2 & 3 & 4. Create a stream, apply filter, and collect the result
-        List<Bogie> highCapacityBogies = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList()); // or .toList() in modern Java
-
-        // 5. Display the filtered bogies
-        System.out.println("\nFiltered High-Capacity Bogies:");
-        highCapacityBogies.forEach(System.out::println);
         
         System.out.println("==============================================");
     }
