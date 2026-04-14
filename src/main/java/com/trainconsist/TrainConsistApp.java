@@ -1,10 +1,9 @@
 package com.trainconsist;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 /**
- * UC3: Track Unique Bogie IDs (Set – HashSet)
+ * UC4: Maintain Ordered Bogie IDs (LinkedList)
  */
 public class TrainConsistApp {
 
@@ -14,26 +13,29 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a HashSet for bogie IDs.
-        Set<String> bogieIds = new HashSet<>();
+        // 1. Create a LinkedList for the consist
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        // 2. Add duplicate values intentionally
-        System.out.println("Adding Bogie: BG101");
-        bogieIds.add("BG101");
+        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
+        trainConsist.add("Engine");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC");
+        trainConsist.add("Cargo");
+        trainConsist.add("Guard");
         
-        System.out.println("Adding Bogie: BG102");
-        bogieIds.add("BG102");
-        
-        System.out.println("Adding Bogie: BG101 (Duplicate)");
-        bogieIds.add("BG101"); // This will be ignored
+        System.out.println("Initial Train Consist: " + trainConsist);
 
-        System.out.println("Adding Bogie: BG103");
-        bogieIds.add("BG103");
+        // 3. Insert a Pantry Car at position 2
+        System.out.println("\nInserting Pantry Car at position 2...");
+        trainConsist.add(2, "Pantry Car");
+        System.out.println("Train Consist after insertion: " + trainConsist);
 
-        // 3. Print the final set. Observe duplicates removed.
-        System.out.println("\nFinal Unique Bogie IDs in Train Consist:");
-        System.out.println(bogieIds);
-        
-        System.out.println("\nNotice that BG101 appears only once. The size of the set is: " + bogieIds.size());
+        // 4. Remove the first and last bogie
+        System.out.println("\nRemoving the first & last bogie (Engine & Guard)...");
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
+
+        // 5. Display the final ordered train consist
+        System.out.println("\nFinal Ordered Train Consist: " + trainConsist);
     }
 }
