@@ -1,13 +1,13 @@
 package com.trainconsist;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * UC7: Sort Bogies by Capacity (Comparator)
+ * UC8: Filter Passenger Bogies Using Streams
  * 
- * Goal: Sort passenger bogies based on their seating capacity using a custom Comparator.
+ * Goal: Filter passenger bogies using Stream pipelines based on seating capacity.
  */
 public class TrainConsistApp {
 
@@ -17,29 +17,28 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a List<Bogie> to store passenger bogies
+        // 1. Create a List<Bogie> to store passenger bogies (Reused from UC7)
         List<Bogie> bogies = new ArrayList<>();
-
-        // 2. Add bogies: Sleeper, AC Chair, First Class with capacities
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
 
-        System.out.println("Before Sorting:");
+        System.out.println("All Passenger Bogies:");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
 
-        System.out.println("\nSorting bogies by capacity (ascending)...");
+        System.out.println("\nFiltering bogies with capacity > 60 using Stream API...");
 
-        // 3. Use Comparator.comparingInt() to define sorting based on capacity
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        // 2 & 3 & 4. Create a stream, apply filter, and collect the result
+        List<Bogie> highCapacityBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList()); // or .toList() in modern Java
 
-        // 4. Display the sorted bogies
-        System.out.println("\nAfter Sorting by Capacity:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        // 5. Display the filtered bogies
+        System.out.println("\nFiltered High-Capacity Bogies:");
+        highCapacityBogies.forEach(System.out::println);
         
         System.out.println("==============================================");
     }
