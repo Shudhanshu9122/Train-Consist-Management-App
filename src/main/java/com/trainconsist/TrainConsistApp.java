@@ -3,9 +3,9 @@ package com.trainconsist;
 import java.util.Arrays;
 
 /**
- * UC16: Sort Passenger Bogie Capacities (Bubble Sort)
+ * UC17: Sort Bogie Type Names Alphabetically (Arrays.sort())
  * 
- * Goal: Sort passenger bogie capacities using a basic algorithm (Bubble Sort) instead of library methods.
+ * Goal: Sort bogie type names alphabetically using Java’s built-in Arrays.sort() method.
  */
 public class TrainConsistApp {
 
@@ -13,34 +13,24 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
-        System.out.println("  UC16: Manual Sorting (Bubble Sort)");
+        System.out.println("  UC17: Built-in Sorting (Arrays.sort)");
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create an array of passenger bogie capacities
-        int[] capacities = {72, 24, 56, 90, 18, 44};
+        // 1. Create an array of bogie type names
+        String[] bogieTypes = {"Sleeper", "AC Chair", "First Class", "Pantry Car", "Guard Coach", "General"};
         
-        System.out.println("Original Capacities: " + Arrays.toString(capacities));
+        System.out.println("Original Bogie Types: " + Arrays.toString(bogieTypes));
 
-        // 2 & 3 & 4. Bubble Sort logic
-        int n = capacities.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                // 5. Swap values when left element is greater than right element
-                if (capacities[j] > capacities[j+1]) {
-                    // Swapping using a temporary variable
-                    int temp = capacities[j];
-                    capacities[j] = capacities[j+1];
-                    capacities[j+1] = temp;
-                }
-            }
-        }
+        // 2 & 3. Use Arrays.sort() for alphabetical ordering
+        System.out.println("\nSorting bogie names alphabetically using Arrays.sort()...");
+        Arrays.sort(bogieTypes);
 
-        // 6. Display the sorted result
-        System.out.println("\nSorted Capacities (Ascending):");
-        System.out.println(Arrays.toString(capacities));
+        // 4 & 5. Display the sorted result
+        System.out.println("\nSorted Bogie Types:");
+        System.out.println(Arrays.toString(bogieTypes));
         
-        System.out.println("\nBubble Sort completed manually without library help.");
+        System.out.println("\nArrays.sort() uses an optimized Dual-Pivot Quicksort / TimSort for efficiency.");
         System.out.println("==============================================");
     }
 }
