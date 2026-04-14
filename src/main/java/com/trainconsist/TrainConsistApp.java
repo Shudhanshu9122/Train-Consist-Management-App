@@ -1,12 +1,13 @@
 package com.trainconsist;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
- * UC6: Map Bogie to Capacity (HashMap)
+ * UC7: Sort Bogies by Capacity (Comparator)
  * 
- * Goal: Associate each bogie with its seating or load capacity using a key-value mapping structure.
+ * Goal: Sort passenger bogies based on their seating capacity using a custom Comparator.
  */
 public class TrainConsistApp {
 
@@ -16,23 +17,30 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create a HashMap to store bogie-capacity mapping
-        Map<String, Integer> bogieCapacityMap = new HashMap<>();
+        // 1. Create a List<Bogie> to store passenger bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-        // 2. Insert capacity values using the put() method
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 56);
-        bogieCapacityMap.put("First Class", 24);
+        // 2. Add bogies: Sleeper, AC Chair, First Class with capacities
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
 
-        System.out.println("Bogie Capacities Loaded.");
-        System.out.println("----------------------------------------------");
-
-        // 3. Iterate over the map using entrySet() and display
-        System.out.println("Displaying Bogie Capabilities:");
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            System.out.println("Bogie Type: " + entry.getKey() + " | Capacity: " + entry.getValue() + " seats");
+        System.out.println("Before Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
         }
 
-        System.out.println("----------------------------------------------");
+        System.out.println("\nSorting bogies by capacity (ascending)...");
+
+        // 3. Use Comparator.comparingInt() to define sorting based on capacity
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+
+        // 4. Display the sorted bogies
+        System.out.println("\nAfter Sorting by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b);
+        }
+        
+        System.out.println("==============================================");
     }
 }
