@@ -1,71 +1,46 @@
 package com.trainconsist;
 
+import java.util.Arrays;
+
 /**
- * UC15: Handle Unsafe Cargo Assignment (try-catch-finally)
- *
- * Key Concepts:
- * - try-catch-finally structured exception handling.
- * - Custom Runtime Exception (CargoSafetyException).
- * - Graceful failure without crashing the app.
- * - finally block for mandatory cleanup/logging.
+ * UC16: Sort Passenger Bogie Capacities (Bubble Sort)
+ * 
+ * Goal: Sort passenger bogie capacities using a basic algorithm (Bubble Sort) instead of library methods.
  */
 public class TrainConsistApp {
-
-    /**
-     * Assigns cargo to a goods bogie. Throws CargoSafetyException if unsafe.
-     */
-    static void assignCargo(GoodsBogie bogie, String cargo) {
-        if (bogie.shape.equals("Rectangular") && cargo.equals("Petroleum")) {
-            throw new CargoSafetyException(
-                "UNSAFE! Petroleum cannot be assigned to a Rectangular bogie. Bogie: " + bogie
-            );
-        }
-        bogie.cargo = cargo;
-        System.out.println("[ASSIGNED] Cargo '" + cargo + "' assigned to: " + bogie);
-    }
 
     public static void main(String[] args) {
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
-        System.out.println("  UC15: Unsafe Cargo Exception Handling");
+        System.out.println("  UC16: Manual Sorting (Bubble Sort)");
         System.out.println("==============================================");
         System.out.println();
 
-        // Case 1: Safe assignment
-        System.out.println("Case 1: Assigning Coal to Rectangular bogie");
-        try {
-            GoodsBogie bogie1 = new GoodsBogie("Rectangular", "");
-            assignCargo(bogie1, "Coal");
-        } catch (CargoSafetyException e) {
-            System.out.println("[CAUGHT] " + e.getMessage());
-        } finally {
-            System.out.println("[FINALLY] Cargo assignment attempt #1 completed.\n");
+        // 1. Create an array of passenger bogie capacities
+        int[] capacities = {72, 24, 56, 90, 18, 44};
+        
+        System.out.println("Original Capacities: " + Arrays.toString(capacities));
+
+        // 2 & 3 & 4. Bubble Sort logic
+        int n = capacities.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // 5. Swap values when left element is greater than right element
+                if (capacities[j] > capacities[j+1]) {
+                    // Swapping using a temporary variable
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j+1];
+                    capacities[j+1] = temp;
+                }
+            }
         }
 
-        // Case 2: Unsafe assignment - Petroleum to Rectangular
-        System.out.println("Case 2: Assigning Petroleum to Rectangular bogie (UNSAFE)");
-        try {
-            GoodsBogie bogie2 = new GoodsBogie("Rectangular", "");
-            assignCargo(bogie2, "Petroleum");
-        } catch (CargoSafetyException e) {
-            System.out.println("[CAUGHT] " + e.getMessage());
-        } finally {
-            System.out.println("[FINALLY] Cargo assignment attempt #2 completed.\n");
-        }
-
-        // Case 3: Safe assignment - Petroleum to Cylindrical
-        System.out.println("Case 3: Assigning Petroleum to Cylindrical bogie (SAFE)");
-        try {
-            GoodsBogie bogie3 = new GoodsBogie("Cylindrical", "");
-            assignCargo(bogie3, "Petroleum");
-        } catch (CargoSafetyException e) {
-            System.out.println("[CAUGHT] " + e.getMessage());
-        } finally {
-            System.out.println("[FINALLY] Cargo assignment attempt #3 completed.\n");
-        }
-
-        System.out.println("Application running safely after all exceptions.");
+        // 6. Display the sorted result
+        System.out.println("\nSorted Capacities (Ascending):");
+        System.out.println(Arrays.toString(capacities));
+        
+        System.out.println("\nBubble Sort completed manually without library help.");
         System.out.println("==============================================");
     }
 }
