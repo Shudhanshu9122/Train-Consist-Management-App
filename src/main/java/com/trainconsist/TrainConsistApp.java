@@ -3,9 +3,9 @@ package com.trainconsist;
 import java.util.Arrays;
 
 /**
- * UC17: Sort Bogie Type Names Alphabetically (Arrays.sort())
+ * UC18: Search Bogie ID using Linear Search
  * 
- * Goal: Sort bogie type names alphabetically using Java’s built-in Arrays.sort() method.
+ * Goal: Search and identify a specific bogie ID from an unsorted list using Linear Search.
  */
 public class TrainConsistApp {
 
@@ -13,24 +13,37 @@ public class TrainConsistApp {
         System.out.println("==============================================");
         System.out.println("   === Train Consist Management App ===");
         System.out.println("==============================================");
-        System.out.println("  UC17: Built-in Sorting (Arrays.sort)");
+        System.out.println("  UC18: Linear Search (O(n))");
         System.out.println("==============================================");
         System.out.println();
 
-        // 1. Create an array of bogie type names
-        String[] bogieTypes = {"Sleeper", "AC Chair", "First Class", "Pantry Car", "Guard Coach", "General"};
-        
-        System.out.println("Original Bogie Types: " + Arrays.toString(bogieTypes));
+        // 1. Create an array of bogie IDs
+        String[] bogieIds = {"BG-101", "BG-203", "BG-505", "BG-102", "BG-808", "BG-304"};
+        System.out.println("Bogie IDs: " + Arrays.toString(bogieIds));
 
-        // 2 & 3. Use Arrays.sort() for alphabetical ordering
-        System.out.println("\nSorting bogie names alphabetically using Arrays.sort()...");
-        Arrays.sort(bogieTypes);
+        // 2. Search key
+        String searchKey = "BG-102";
+        System.out.println("\nSearching for: " + searchKey);
 
-        // 4 & 5. Display the sorted result
-        System.out.println("\nSorted Bogie Types:");
-        System.out.println(Arrays.toString(bogieTypes));
-        
-        System.out.println("\nArrays.sort() uses an optimized Dual-Pivot Quicksort / TimSort for efficiency.");
+        // 3 & 4. Sequence traversal and comparison
+        boolean found = false;
+        int position = -1;
+        for (int i = 0; i < bogieIds.length; i++) {
+            if (bogieIds[i].equals(searchKey)) {
+                found = true;
+                position = i;
+                break; // 5. Stop when match found
+            }
+        }
+
+        // 6. Display result
+        if (found) {
+            System.out.println("\n[FOUND] " + searchKey + " exists at index " + position);
+        } else {
+            System.out.println("\n[NOT FOUND] " + searchKey + " is not in the list.");
+        }
+
+        System.out.println("\nLinear Search visits each element sequentially to find a match.");
         System.out.println("==============================================");
     }
 }
